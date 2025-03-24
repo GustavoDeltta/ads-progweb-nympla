@@ -8,7 +8,19 @@ async function getAllUsers(req, res) {
   const service = new UserService(userRepository);
   const users = await service.getAllUsers();
 
-  res.json(users);
+  res.status(200).json(users);
 }
 
-module.exports = { getAllUsers };
+async function registerUser(req, res) {
+  const data = req.body;
+  const service = new UserService(userRepository);
+  const replyService = await service.registerUser(data);
+
+  res.status(201).json({ status: "User successfully created!" });
+}
+
+async function loginUser(req, res) {
+  
+}
+
+module.exports = { getAllUsers, registerUser, loginUser };

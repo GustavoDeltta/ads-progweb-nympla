@@ -4,6 +4,7 @@ const routes = require("./Routes");
 const server = express();
 const PORT = 8080;
 
+server.use(express.json());
 server.use(routes);
 
 server.listen(PORT, () => {
