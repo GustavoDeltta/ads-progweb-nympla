@@ -1,3 +1,6 @@
+const User = require("../entities/User");
+const bcryptjs = require("bcryptjs");
+
 class UserService {
     constructor(userRepository){
         this.userRepository = userRepository;
@@ -9,7 +12,13 @@ class UserService {
 
     async registerUser(data){
         console.log(data);
-        return "";
+
+        const hashPassword = await bcryptjs.hash(data.password, 10);
+
+        const user = new User(data.name, data.email, hashPassword, data.dob);
+
+        // return await this.userRepository.registerUser(user);
+        return await user;
     }
 }
 

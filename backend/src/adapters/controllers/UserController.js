@@ -16,7 +16,7 @@ async function registerUser(req, res) {
   const service = new UserService(userRepository);
   const replyService = await service.registerUser(data);
 
-  res.status(201).json({ status: "User successfully created!" });
+  res.status(201).json({ status: replyService });
 }
 
 async function loginUser(req, res) {
