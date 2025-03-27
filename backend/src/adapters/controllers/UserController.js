@@ -30,7 +30,7 @@ async function loginUser(req, res) {
   const replyService = await service.authUser(data);
 
   if(replyService.error){
-    res.status(500).json({ error: replyService.error });  
+    return res.status(500).json({ error: replyService.error });  
   }
   res.status(201).json(replyService);
 }
