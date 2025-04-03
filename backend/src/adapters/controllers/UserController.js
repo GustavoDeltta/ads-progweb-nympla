@@ -30,16 +30,17 @@ async function loginUser(req, res) {
   const replyService = await service.authUser(data);
 
   if(replyService.error){
-    return res.status(401).json({ error: replyService.error });  
+    return res.status(replyService.code).json({ error: replyService.error });  
   }
 
   const payload = {
-    userId: replyService.id,
-    userRole: replyService.role
+    userId: replyService.user.id,
+    userRole: replyService.user.role
   };
 
   const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn:"5m"});
-  res.status(200).json({token: token});
+
+  res.status(200).json({ token: token });
 }
 
 async function profileUser(req, res) {

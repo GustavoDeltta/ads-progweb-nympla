@@ -10,7 +10,12 @@ class EventsService{
     }
 
     async insertEvent(data){
-        const event = new Event(data.title, data.date, data.description, data.image_url);
+        const event = new Event(
+            data.title, 
+            data.date, 
+            data.description, 
+            data.image_url
+        );
         return await this.eventsRepository.insertEvent(event);
     }
 }
