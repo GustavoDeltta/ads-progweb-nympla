@@ -20,5 +20,16 @@ async function login() {
         body: JSON.stringify(dataLogin),
     });
 
-    console.log(reply.status);
+    const data = await reply.json();
+
+    if(reply.status != 200){
+        alert("Email ou senha inválidos!", reply.status);
+        return;
+    }
+
+    /* Aprender sobre cookies e corrigir o armazenamento do token! */
+    window.localStorage.setItem("token", data.token);
+
+    window.location.href = data.redirect;
+
 }

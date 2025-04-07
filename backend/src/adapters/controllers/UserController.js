@@ -40,11 +40,22 @@ async function loginUser(req, res) {
 
   const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn:"5m"});
 
-  res.status(200).json({ token: token });
+  let redirect = "";
+  if(replyService.user.role === "admin"){
+    redirect = "dashboard.html";
+  }else{
+    redirect = "profile.html";
+  }
+
+  res.status(200).json({ token, redirect });
 }
 
 async function profileUser(req, res) {
   res.json("Bem vindo! Você está autenticado.");
 }
 
-module.exports = { getAllUsers, registerUser, loginUser, profileUser };
+async function adminUser(req, res) {
+  res.json("Bem vindo! Você está autenticado.");
+}
+
+module.exports = { getAllUsers, registerUser, loginUser, profileUser, adminUser };
