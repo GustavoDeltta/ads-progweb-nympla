@@ -7,7 +7,6 @@ const eventsRepository = new EventsRepository(database);
 async function getAllEvents(req, res){
     const service = new EventsService(eventsRepository);
     const replyService = await service.getAllEvents();
-
     if(replyService.error){
         res.status(500).json({ error: replyService.error });
     }
@@ -23,4 +22,22 @@ async function insertEvent(req, res){
     res.status(201).json({ status: replyService });
 }
 
-module.exports = { getAllEvents, insertEvent };
+async function updateEvent(req, res) {
+    const service = new EventsService(eventsRepository);
+    const replyService = await service.updateEvent(req.body);
+    if(replyService.error){
+        res.status(500).json({ error: replyService.error });
+    }
+    res.status(200).json({ status: replyService });
+}
+
+async function deleteEvent(req, res) {
+    const service = new EventsService(eventsRepository);
+    const replyService = await service.updateEvent(req.body);
+    if(replyService.error){
+        res.status(500).json({ error: replyService.error });
+    }
+    res.status(200).json({ status: replyService });
+}
+
+module.exports = { getAllEvents, insertEvent, updateEvent, deleteEvent };
