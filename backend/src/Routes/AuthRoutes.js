@@ -1,10 +1,11 @@
 const { Router } = require("express");
 const UserController = require("../adapters/controllers/UserController");
-const Authenticate = require("../frameworks/AuthenticateToken");
+const authMiddleware = require("../middlewares/authMiddleware");
+const roleMiddleware = require("../middlewares/roleMiddleware");
 
 const AuthRoutes = Router();
 
-AuthRoutes.post("/auth/profile", Authenticate, UserController.profileUser);
-AuthRoutes.post("/auth/dashboard", Authenticate, UserController.adminUser);
+AuthRoutes.post("/auth/profile", authMiddleware, roleMiddleware("user"), UserController.profileUser);   
+AuthRoutes.post("/auth/dashboard", authMiddleware, roleMiddleware("admin"), UserController.adminUser);
 
 module.exports = AuthRoutes;

@@ -47,7 +47,14 @@ async function loginUser(req, res) {
     redirect = "profile.html";
   }
 
-  res.status(200).json({ token, redirect });
+  res.cookie('token', token, {
+    httpOnly: true,
+    secure: false, // só HTTPS em produção
+    sameSite: 'lax',
+    maxAge: 5 * 60 * 1000 // 5 minutos
+  });
+
+  res.status(200).json({ redirect });
 }
 
 async function profileUser(req, res) {
