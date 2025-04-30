@@ -47,9 +47,13 @@ class EventsRepository{
     async deleteEvent(id){
         try{
             const query = "DELETE FROM events WHERE id = $1";
-            await this.database.query(query, id);
-        }catch(error){
-            return {error: error.message};
+            const result = await this.database.query(query, [id]);
+            if (result.rowCount === 0) {
+                return { error: 'Evento não encontrado para exclusão.' };  // Retorna erro se nada foi deletado
+            }
+            return { success: 'Evento deletado com sucesso!' };  // Retorna sucesso se a exclusão foi bem-sucedida
+        } catch (error) {
+            return { error: error.message };  // Propaga o erro se algo der errado
         }
     }
 }

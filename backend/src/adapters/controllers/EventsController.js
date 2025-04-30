@@ -33,7 +33,7 @@ async function updateEvent(req, res) {
 
 async function deleteEvent(req, res) {
     const service = new EventsService(eventsRepository);
-    const replyService = await service.updateEvent(req.body);
+    const replyService = await service.deleteEvent(req.params.id);
     if(replyService.error){
         res.status(500).json({ error: replyService.error });
     }

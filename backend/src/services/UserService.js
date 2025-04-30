@@ -35,6 +35,10 @@ class UserService {
         
         return {status:"Login successfully!", user};
     }
+
+    async getUserById(id){
+        return await this.userRepository.getUserById(id);
+    }
 }
 
 module.exports = UserService;

@@ -13,7 +13,7 @@ class UserRepository{
         }
     }
 
-    async registerUser(user){
+    async registerUser(user){   
         try{
             const query = "insert into users(name, email, password, dob, role) values($1, $2, $3, $4, 'user') returning *";
             const reply = await this.database.query(query, [
@@ -36,6 +36,14 @@ class UserRepository{
         }catch(error){
             return {error: error.message}
         }
+    }
+
+    async getUserById(id){
+        const query = "select * from users where id = $1";
+        const reply = await this.database.query(query, [id]);
+        return reply.rows[0];
+    }catch(error){
+        return {error: error.message}
     }
 }
 

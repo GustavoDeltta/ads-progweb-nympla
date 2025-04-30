@@ -9,19 +9,41 @@ async function getAllUsers(req, res) {
   const service = new UserService(userRepository);
   const replyService = await service.getAllUsers();
 
-  if(replyService.error){
-    res.status(500).json({ error: replyService.error });  
+  if (replyService.error) {
+    res.status(500).json({ error: replyService.error });
   }
   res.status(200).json({ users: replyService });
 }
 
 async function registerUser(req, res) {
   const service = new UserService(userRepository);
-  const replyService = await service.registerUser(req.body);
-  if(replyService.error){
-    res.status(500).json({ error: replyService.error });  
+  const data = req.body;
+  const replyService = await service.registerUser(data);
+
+  if (replyService.error) {
+    res.status(500).json({ error: replyService.error });
   }
-  res.status(201).json({ status: replyService });
+
+  const loginData = {
+    email: data.email,
+    password: data.password
+  }
+
+  console.log(loginData);
+
+  const login = await service.authUser(loginData)
+
+  console.log(login);
+
+  const payload = {
+    userId: login.user.id,
+    userRole: login.user.role
+  };
+
+  const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "5m" });
+
+  let redirect = "home.html"
+  res.status(201).json({ token, redirect });
 }
 
 async function loginUser(req, res) {
@@ -29,8 +51,8 @@ async function loginUser(req, res) {
   const service = new UserService(userRepository);
   const replyService = await service.authUser(data);
 
-  if(replyService.error){
-    return res.status(replyService.code).json({ error: replyService.error });  
+  if (replyService.error) {
+    return res.status(replyService.code).json({ error: replyService.error });
   }
 
   const payload = {
@@ -38,23 +60,16 @@ async function loginUser(req, res) {
     userRole: replyService.user.role
   };
 
-  const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn:"5m"});
+  const token = jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "5m" });
 
   let redirect = "";
-  if(replyService.user.role === "admin"){
-    redirect = "dashboard.html";
-  }else{
-    redirect = "profile.html";
+  if (replyService.user.role === "admin") {
+    redirect = "admin.html";
+  } else {
+    redirect = "home.html";
   }
 
-  res.cookie('token', token, {
-    httpOnly: true,
-    secure: false, // só HTTPS em produção
-    sameSite: 'lax',
-    maxAge: 5 * 60 * 1000 // 5 minutos
-  });
-
-  res.status(200).json({ redirect });
+  res.status(200).json({ token, payload, redirect });
 }
 
 async function profileUser(req, res) {
