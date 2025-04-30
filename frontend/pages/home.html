@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="../styles/home.css" />
+  </head>
+  <body>
+    <div id="confirm-subscription-modal" class="modal">
+      <div class="modal-content">
+        <h2 id="modal-title">Confirme sua presença!</h2>
+        <p id="modal-message">Você precisa fazer login novamente.</p>
+        <button id="register-button">Criar uma Conta</button>
+        <button id="login-button">Fazer Login</button>
+      </div>
+    </div>
+    <div class="vertical-menu">
+      <img src="../imgs/logo.png" alt="logo" />
+      <div class="divisor"></div>
+      <button class="menu-button">
+        <span>Home</span>
+      </button>
+      <button class="menu-button" id="subscriptions">
+        <span>Minhas Incrições</span>
+      </button>
+      <button class="menu-button" id="profile">
+        <span id="login-logout-button"></span>
+      </button>
+    </div>
+    <main>
+      <header>
+        <div class="search">
+          <input placeholder="Pesquisar" type="text" id="search-input" />
+          <button type="submit">Ir</button>
+        </div>
+      </header>
+      <h1>Eventos Disponíveis:</h1>
+      <div class="events" id="events"></div>
+    </main>
+    <script src="../script/home.js"></script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minhas Inscrições</title>
+    <link rel="stylesheet" href="../styles/subscriptions.css" />
+  </head>
+  <body>
+    <div id="unauthorizedModal" class="modal">
+      <div class="modal-content">
+        <h2 id="modal-title">Sessão Expirada</h2>
+        <p id="modal-message">Você precisa fazer login novamente.</p>
+        <button id="register-button">Criar uma Conta</button>
+        <button id="login-button">Fazer Login</button>
+      </div>
+    </div>
+    <div id="confirmation-modal" class="modal">
+      <div class="modal-content">
+        <h2 id="modal-title">Opa, tem certeza?</h2>
+        <p id="modal-message">Você confirma que deseja cancelar essa inscrição?</p>
+        <button id="reject-button">Voltar</button>
+        <button id="confirm-button">Confirmar</button>
+      </div>
+    </div>
+    <div class="vertical-menu">
+      <img src="../imgs/logo.png" alt="logo" />
+      <div class="divisor"></div>
+      <button class="menu-button" id="home-button">
+        <span>Home</span>
+      </button>
+      <button class="menu-button" id="current-page">
+        <span>Minhas Incrições</span>
+      </button>
+      <button class="menu-button" id="profile">
+        <span id="login-logout-button"></span>
+      </button>
+    </div>
+    <main>
+      <header>
+        <div class="search">
+          <input placeholder="Pesquisar" type="text" id="search-input" />
+          <button type="submit">Ir</button>
+        </div>
+      </header>
+      <h1>Suas Inscrições:</h1>
+      <div class="events" id="events"></div>
+    </main>
+    <script src="../script/subscriptions.js"></script>
+  </body>
+</html>
