@@ -107,14 +107,6 @@ POST /subscription/create - Cria uma nova inscrição (user).
 DELETE /subscription/delete/:id - Cancela inscrição pelo seu ID (user).
 ```
 
-## 📸 Screenshots Desktop - (Clique nas imagens para amplia-las)
-
-<div class="desktop">
-  <img src="" alt="" width="750"/>
-  <img src="" alt="" width="750"/>
-  <img src="" alt="M" width="750"/>
-</div>
-
 ## 🗄️ Estrutura do Banco de Dados
 
 ### Tabelas
